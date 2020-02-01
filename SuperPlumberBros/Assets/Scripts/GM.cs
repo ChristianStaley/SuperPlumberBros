@@ -135,12 +135,27 @@ public class GM : MonoBehaviour
     #region GameStates
 
     int mLevel = 1;
+    float waitTime = 10.0f;
+    float lastTime = 10.0f;
 
     public static int Level
     {
         get
         {
             return mSingleton.mLevel;
+        }
+        set
+        {
+            mSingleton.mLevel = value;
+        }
+    }
+
+    private void IncreaseLevel()
+    {
+        if (Time.time > lastTime)
+        {
+            mLevel++;
+            lastTime += waitTime;
         }
     }
 
@@ -153,132 +168,132 @@ public class GM : MonoBehaviour
     //[SerializeField]
     //private GameObject NextLevelText;    //Set in IDE
 
-    public enum GameStates
-    {
-        None,
-        Init,
-        Startup,
-        PressPlay,
-        Play,
-        Playing,
-        NextLevel,
-        GameOver,
-    }
+    //public enum GameStates
+    //{
+    //    None,
+    //    Init,
+    //    Startup,
+    //    PressPlay,
+    //    Play,
+    //    Playing,
+    //    NextLevel,
+    //    GameOver,
+    //}
 
-    GameStates mCurrentState = GameStates.None;
+    //GameStates mCurrentState = GameStates.None;
 
-    static public GameStates GameState
-    {
-        private set
-        {
-            if (value != mSingleton.mCurrentState)
-            {
-                mSingleton.ExitState(mSingleton.mCurrentState);
-                GameStates tNextState = mSingleton.EnterState(value);
-                if (value == tNextState)
-                {
-                    mSingleton.mCurrentState = tNextState;
-                }
-                else
-                {
-                    mSingleton.mCurrentState = value;
-                    GameState = tNextState;
-                }
-            }
-        }
-        get
-        {
-            return mSingleton.mCurrentState;
-        }
-    }
+    //static public GameStates GameState
+    //{
+    //    private set
+    //    {
+    //        if (value != mSingleton.mCurrentState)
+    //        {
+    //            mSingleton.ExitState(mSingleton.mCurrentState);
+    //            GameStates tNextState = mSingleton.EnterState(value);
+    //            if (value == tNextState)
+    //            {
+    //                mSingleton.mCurrentState = tNextState;
+    //            }
+    //            else
+    //            {
+    //                mSingleton.mCurrentState = value;
+    //                GameState = tNextState;
+    //            }
+    //        }
+    //    }
+    //    get
+    //    {
+    //        return mSingleton.mCurrentState;
+    //    }
+    //}
 
 
-    private GameStates EnterState(GameStates vState)
-    {
-        Debug.LogFormat("Enter State {0}", vState);
-        switch (vState)
-        {
-            case GameStates.Init:
+    //private GameStates EnterState(GameStates vState)
+    //{
+    //    Debug.LogFormat("Enter State {0}", vState);
+    //    switch (vState)
+    //    {
+    //        case GameStates.Init:
 
-                GameClear();
-                return GameStates.PressPlay;
+    //            GameClear();
+    //            return GameStates.PressPlay;
 
-            case GameStates.PressPlay:
+    //        case GameStates.PressPlay:
 
-                break;
+    //            break;
 
-            case GameStates.Play:
+    //        case GameStates.Play:
                 
-                return GameStates.Playing;
+    //            return GameStates.Playing;
 
-            case GameStates.NextLevel:
-                mLevel++;
-                return GameStates.Playing;
+    //        case GameStates.NextLevel:
+    //            mLevel++;
+    //            return GameStates.Playing;
 
-            case GameStates.GameOver:
+    //        case GameStates.GameOver:
 
-                break;
+    //            break;
 
-            default:
-                break;
-        }
-        return vState;
-    }
+    //        default:
+    //            break;
+    //    }
+    //    return vState;
+    //}
 
-    private void ExitState(GameStates vState)
-    {
-        Debug.LogFormat("Exit State {0}", vState);
-        switch (vState)
-        {
-            case GameStates.PressPlay:
+    //private void ExitState(GameStates vState)
+    //{
+    //    Debug.LogFormat("Exit State {0}", vState);
+    //    switch (vState)
+    //    {
+    //        case GameStates.PressPlay:
 
-                break;
-            default:    //No Action
-                break;
-        }
-    }
+    //            break;
+    //        default:    //No Action
+    //            break;
+    //    }
+    //}
 
-    IEnumerator GameStateCoRoutine()
-    {
-        do
-        {
-            switch (GameState)
-            {
+    //IEnumerator GameStateCoRoutine()
+    //{
+    //    do
+    //    {
+    //        switch (GameState)
+    //        {
 
-                case GameStates.PressPlay:
-                    if (Input.GetKey(KeyCode.Space))
-                    {
-                        GameState = GameStates.Play;    //Go to new state
-                    }
-                    break;
+    //            case GameStates.PressPlay:
+    //                if (Input.GetKey(KeyCode.Space))
+    //                {
+    //                    GameState = GameStates.Play;    //Go to new state
+    //                }
+    //                break;
 
-                case GameStates.Playing:
-                    {
+    //            case GameStates.Playing:
+    //                {
 
-                    }
-                    break;
+    //                }
+    //                break;
 
-                case GameStates.GameOver:
-                    if (Input.GetKey(KeyCode.Space))
-                    {
-                        GameState = GameStates.Init;    //Go to new state
-                    }
-                    break;
+    //            case GameStates.GameOver:
+    //                if (Input.GetKey(KeyCode.Space))
+    //                {
+    //                    GameState = GameStates.Init;    //Go to new state
+    //                }
+    //                break;
 
-                default:    //No Action
-                    break;
-            }
-            yield return new WaitForSeconds(0.1f);  //Wait for a 10th of a second before runnign again, lets other stuff process
-        } while (true); //Never End
-    }
+    //            default:    //No Action
+    //                break;
+    //        }
+    //        yield return new WaitForSeconds(0.1f);  //Wait for a 10th of a second before runnign again, lets other stuff process
+    //    } while (true); //Never End
+    //}
 
 
-    static public void InitGame()
-    {
-        mSingleton.mScore = 0;  //Reset Score
-        mSingleton.mLevel = 1;  //Start at Level 1
-        GameState = GameStates.Init;
-    }
+    //static public void InitGame()
+    //{
+    //    mSingleton.mScore = 0;  //Reset Score
+    //    mSingleton.mLevel = 1;  //Start at Level 1
+    //    GameState = GameStates.Init;
+    //}
 
     public static void StartGame()
     {
@@ -302,8 +317,8 @@ public class GM : MonoBehaviour
 
     private void Update()
     {
-        print(GM.tool);
-        print(GM.Score);
+
+        IncreaseLevel();
 
     }
 

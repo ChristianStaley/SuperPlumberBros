@@ -73,9 +73,5 @@ Material:
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-<<<<<<< HEAD:SuperPlumberBros/Assets/Materials/GraniteGrey.mat
-    - _Color: {r: 0.4117647, g: 0.4, b: 0.40392157, a: 1}
-=======
-    - _Color: {r: 0, g: 1, b: 0.9400835, a: 1}
->>>>>>> bf7af013005a936c0c35ac1dac676902c86f10cc:SuperPlumberBros/Assets/Materials/New Material.mat
+    - _Color: {r: 0.40392157, g: 0.40392157, b: 0.40392157, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}

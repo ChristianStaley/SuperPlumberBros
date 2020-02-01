@@ -99,7 +99,8 @@ public class GM : MonoBehaviour
         "Hammer", "Wrench"
     };
 
-
+    private static int toolMaxRange = 1;
+    private static int toolMinRange = 0;
     
 
 
@@ -116,14 +117,14 @@ public class GM : MonoBehaviour
 
     public static void ChangeTool(int n)
     {
-        mSingleton.currentTool = n;
+        mSingleton.currentTool += n;
         if (mSingleton.currentTool < 0)
         {
-            mSingleton.currentTool = 0;
+            mSingleton.currentTool = toolMaxRange;
         }
         else if (mSingleton.currentTool > 1)
         {
-            mSingleton.currentTool = 1;
+            mSingleton.currentTool = toolMinRange;
         }
     }
 

@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class Repair : MonoBehaviour
 {
-    // Start is called before the first frame update
+    [SerializeField]
+    private string repairType;
+
+
+    private BoxCollider bc;
     void Start()
     {
         
@@ -13,9 +17,16 @@ public class Repair : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown("e"))
+        //print(gameObject + " " + isEnabled);
+    }
+
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (Input.GetKeyDown("e") && GM.tool == repairType && Vector3.Distance(transform.position, other.transform.position) <= 2)
         {
             GM.Score = 100;
+            gameObject.SetActive(false);
         }
     }
 

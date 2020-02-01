@@ -46,7 +46,8 @@ public class GM : MonoBehaviour
 
     public enum Prefabs
     {
-        Player = 0,
+        WaterParticle,
+        GasParticle,
         LastOne
     };
 
@@ -93,31 +94,43 @@ public class GM : MonoBehaviour
 
     #region Tool
 
-    public enum Tools
+    private string[] toolList = new string[2]
     {
-        Hammer,
-        
-    }
+        "Hammer", "Wrench"
+    };
 
-    private Tools CurrentTool;
+    private static int toolMaxRange = 1;
+    private static int toolMinRange = 0;
     
 
 
-    //private int currentTool;
-    //public static string tool
-    //{
-    //    get
-    //    {
+    private int currentTool = 0;
+    public static string tool
+    {
+        get
+        {
 
-    //        return mSingleton.tools[mSingleton.currentTool];
-    //    }
-    //    set
-    //    {
-    //        mSingleton.currentTool = value;
-    //    }
-    //}
+           return mSingleton.toolList[mSingleton.currentTool];
+        }
+
+    }
+
+    public static void ChangeTool(int n)
+    {
+        mSingleton.currentTool += n;
+        if (mSingleton.currentTool < 0)
+        {
+            mSingleton.currentTool = toolMaxRange;
+        }
+        else if (mSingleton.currentTool > 1)
+        {
+            mSingleton.currentTool = toolMinRange;
+        }
+    }
 
     #endregion
+
+
 
     #region GameStates
 
@@ -289,7 +302,7 @@ public class GM : MonoBehaviour
 
     private void Update()
     {
-        //print(GM.tool);
+        print(GM.tool);
         print(GM.Score);
 
     }

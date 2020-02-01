@@ -151,7 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 508b778fcbf77bf428d5f0ef7d465565, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  repairType: Hammer
+  repairType: Wrench
 --- !u!65 &250672109789840325
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -5,7 +5,7 @@ public class ObjectManager : MonoBehaviour
     private GameObject[] repairTargets;
     private float lastSpawnTime;
     
-    private float waitTime = 2.0f;
+    private float waitTime = 5.0f;
 
     // Start is called before the first frame update
     void Start()

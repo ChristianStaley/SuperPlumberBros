@@ -8,6 +8,7 @@ public class UIDisplay : MonoBehaviour
     public Text textScore;
     public Text textTool;
     public Text textLevel;
+    public Text textTime;
     public Image imageHammer;
     public Image imageWrench;
     
@@ -26,15 +27,15 @@ public class UIDisplay : MonoBehaviour
             imageHammer.enabled = true;
             imageWrench.enabled = false;
         }
-        
-            
-
         if (imageWrench != null && GM.tool == "Wrench")
         {
             imageWrench.enabled = true;
             imageHammer.enabled = false;
         }
-            
+
+        if (textTime != null)
+            textTime.text = "Time Left: " + Mathf.Round(GM.Timer);
+
 
         if (textScore!=null)
             textScore.text = "Score " + GM.Score;
@@ -42,5 +43,7 @@ public class UIDisplay : MonoBehaviour
             textTool.text = "Tool: " + GM.tool;
         if (textLevel != null)
             textLevel.text = "Level: " + GM.Level;
+
+
     }
 }

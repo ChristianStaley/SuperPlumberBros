@@ -312,6 +312,33 @@ public class GM : MonoBehaviour
 
     #endregion
 
+    #region Time
+
+    float currentTime = 30.0f;
+    public static float Timer
+    {
+        get
+        {
+            return mSingleton.currentTime;
+        }
+        set
+        {
+            mSingleton.currentTime = value;
+        }
+    }
+
+    public static void AddTime(float time)
+    {
+        mSingleton.currentTime += time;
+    }
+
+    private static void CountTime()
+    {
+        mSingleton.currentTime -= Time.deltaTime;
+    }
+
+    #endregion
+
     #region Debug
 
 
@@ -319,6 +346,7 @@ public class GM : MonoBehaviour
     {
 
         IncreaseLevel();
+        CountTime();
 
     }
 

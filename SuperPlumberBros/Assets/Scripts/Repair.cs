@@ -7,8 +7,6 @@ public class Repair : MonoBehaviour
     [SerializeField]
     private string repairType;
 
-
-    private BoxCollider bc;
     void Start()
     {
         
@@ -17,15 +15,16 @@ public class Repair : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //print(gameObject + " " + isEnabled);
+        
     }
 
 
     private void OnTriggerStay(Collider other)
     {
-        if (Input.GetKeyDown("e") && GM.tool == repairType && Vector3.Distance(transform.position, other.transform.position) <= 2)
+        if (Input.GetKeyDown("e") && GM.tool == repairType) // && Vector3.Distance(transform.position, other.transform.position) <= 3
         {
             GM.Score = 100;
+            GM.AddTime(5.0f/GM.Level + 0.5f);
             gameObject.SetActive(false);
         }
     }

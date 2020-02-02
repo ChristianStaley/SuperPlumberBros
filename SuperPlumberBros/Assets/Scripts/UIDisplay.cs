@@ -53,9 +53,13 @@ public class UIDisplay : MonoBehaviour
             if(objectGameOver != null)
             {
                 objectGameOver.SetActive(false);
-                buttonGameOver.SetActive(false);
-                cameraGameOver.enabled = false;
             } 
+
+            if(buttonGameOver!=null)
+                buttonGameOver.SetActive(false);
+
+            if(cameraGameOver!=null)
+                cameraGameOver.enabled = false;
         }
 
         if (objectGameOver != null && GM.GameOver)

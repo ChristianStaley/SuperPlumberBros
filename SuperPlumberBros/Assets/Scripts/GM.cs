@@ -23,7 +23,7 @@ public class GM : MonoBehaviour
         if (mSingleton == null)
         {
             mSingleton = this;
-            DontDestroyOnLoad(gameObject);
+            //DontDestroyOnLoad(gameObject);
         }
         else if (mSingleton != this)
         {
@@ -129,7 +129,7 @@ public class GM : MonoBehaviour
 
     
 
-    float currentTime = 2.0f;
+    float currentTime = 10.0f;
     public static float Timer
     {
         get

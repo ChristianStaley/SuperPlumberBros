@@ -13,14 +13,18 @@ public class PC : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.mouseScrollDelta.y < 0) // Rolled Down
+        if (!GM.GameOver)
         {
-            GM.ChangeTool(1);
+            if (Input.mouseScrollDelta.y < 0) // Rolled Down
+            {
+                GM.ChangeTool(1);
+            }
+            if (Input.mouseScrollDelta.y > 0) // Rolled Up
+            {
+                GM.ChangeTool(-1);
+            }
         }
-        if (Input.mouseScrollDelta.y > 0) // Rolled Up
-        {
-            GM.ChangeTool(-1);
-        }
+
 
     }
 }

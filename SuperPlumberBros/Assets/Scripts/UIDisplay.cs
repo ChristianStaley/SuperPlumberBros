@@ -11,6 +11,8 @@ public class UIDisplay : MonoBehaviour
     public Text textTime;
     public Image imageHammer;
     public Image imageWrench;
+    public GameObject objectGameOver;
+    public Camera cameraGameOver;
     
     
     // Start is called before the first frame update
@@ -22,28 +24,42 @@ public class UIDisplay : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (imageHammer != null && GM.tool == "Hammer")
+        if (!GM.GameOver)
         {
-            imageHammer.enabled = true;
-            imageWrench.enabled = false;
+            if (imageHammer != null && GM.tool == "Hammer")
+            {
+                imageHammer.enabled = true;
+                imageWrench.enabled = false;
+            }
+            if (imageWrench != null && GM.tool == "Wrench")
+            {
+                imageWrench.enabled = true;
+                imageHammer.enabled = false;
+            }
+
+            if (textTime != null)
+                textTime.text = "Time Left: " + Mathf.Round(GM.Timer);
+
+
+            if (textScore!=null)
+                textScore.text = "Score " + GM.Score;
+            if(textTool!=null)
+                textTool.text = "Tool: " + GM.tool;
+            if (textLevel != null)
+                textLevel.text = "Level: " + GM.Level;
+
+            if(objectGameOver != null)
+            {
+                objectGameOver.SetActive(false);
+                cameraGameOver.enabled = false;
+            } 
         }
-        if (imageWrench != null && GM.tool == "Wrench")
+
+        if (objectGameOver != null && GM.GameOver)
         {
-            imageWrench.enabled = true;
-            imageHammer.enabled = false;
+            objectGameOver.SetActive(true);
+
+
         }
-
-        if (textTime != null)
-            textTime.text = "Time Left: " + Mathf.Round(GM.Timer);
-
-
-        if (textScore!=null)
-            textScore.text = "Score " + GM.Score;
-        if(textTool!=null)
-            textTool.text = "Tool: " + GM.tool;
-        if (textLevel != null)
-            textLevel.text = "Level: " + GM.Level;
-
-
     }
 }

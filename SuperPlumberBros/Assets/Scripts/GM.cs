@@ -34,39 +34,6 @@ public class GM : MonoBehaviour
 
     #endregion
 
-    
-
-    #region Spawning
-
-    public enum Prefabs
-    {
-        WaterParticle,
-        GasParticle,
-        LastOne
-    };
-
-    [SerializeField]
-    private GameObject[] SpawnablePrefabs;
-    private static GameObject mPlayer;
-
-    public static GameObject SpawnPrefab(Prefabs vPrefab, Vector2 vPosition, Quaternion vRotation) //Spawns the requested prefab at the specified position and rotation
-    {
-        int tIndex = (int)vPrefab;
-        if (mSingleton.SpawnablePrefabs != null && tIndex < mSingleton.SpawnablePrefabs.Length)
-        {
-            {
-                if (mPlayer = null)
-                    mPlayer = Instantiate(mSingleton.SpawnablePrefabs[tIndex], vPosition, vRotation);
-                else
-                    return Instantiate(mSingleton.SpawnablePrefabs[tIndex], vPosition, vRotation);
-            }
-        }
-
-        return null;
-    }
-
-    #endregion
-
     #region Scoring
 
     int mScore = 0;
@@ -127,7 +94,7 @@ public class GM : MonoBehaviour
 
 
 
-    #region GameStates
+    #region Level
 
     int mLevel = 1;
     float waitTime = 10.0f;
@@ -159,7 +126,7 @@ public class GM : MonoBehaviour
 
     #region Time
 
-    private bool gameOver = false;
+    
 
     float currentTime = 30.0f;
     public static float Timer
@@ -194,6 +161,20 @@ public class GM : MonoBehaviour
     }
 
     #endregion
+    private bool gameOver = false;
+    public GameObject objectPC;
+
+    public static bool GameOver
+    {
+        get
+        {
+            return mSingleton.gameOver;
+        }
+        set
+        {
+            mSingleton.gameOver = value;
+        }
+    }
 
     private void Update()
     {

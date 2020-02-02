@@ -23,7 +23,9 @@ public class Menu : MonoBehaviour
 
     public void LoadScene(string newLevel)
     {
+        
         SceneManager.LoadScene(newLevel);
+        
     }
 
     public void CloseGame()

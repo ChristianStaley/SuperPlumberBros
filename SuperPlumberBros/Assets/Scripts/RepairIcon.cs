@@ -37,7 +37,6 @@ public class RepairIcon : MonoBehaviour
                 move = true;
         }
 
-        //transform.rotation = Quaternion.RotateTowards(transform.rotation, Camera.main.transform.rotation, 1);
     }
 
     private void test()

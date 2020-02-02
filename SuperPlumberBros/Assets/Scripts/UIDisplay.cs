@@ -13,6 +13,7 @@ public class UIDisplay : MonoBehaviour
     public Image imageWrench;
     public GameObject objectGameOver;
     public Camera cameraGameOver;
+    public GameObject buttonGameOver;
     
     
     // Start is called before the first frame update
@@ -26,6 +27,7 @@ public class UIDisplay : MonoBehaviour
     {
         if (!GM.GameOver)
         {
+            
             if (imageHammer != null && GM.tool == "Hammer")
             {
                 imageHammer.enabled = true;
@@ -51,6 +53,7 @@ public class UIDisplay : MonoBehaviour
             if(objectGameOver != null)
             {
                 objectGameOver.SetActive(false);
+                buttonGameOver.SetActive(false);
                 cameraGameOver.enabled = false;
             } 
         }
@@ -58,7 +61,8 @@ public class UIDisplay : MonoBehaviour
         if (objectGameOver != null && GM.GameOver)
         {
             objectGameOver.SetActive(true);
-
+            buttonGameOver.SetActive(true);
+            buttonGameOver.SetActive(true);
 
         }
     }

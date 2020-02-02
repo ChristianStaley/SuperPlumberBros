@@ -34,13 +34,7 @@ public class GM : MonoBehaviour
 
     #endregion
 
-
-
-    private void Start()
-    {
-        
-    }
-
+    
 
     #region Spawning
 
@@ -84,8 +78,9 @@ public class GM : MonoBehaviour
         }
         set
         {
-            Debug.Assert(value > 0, "Adding negative score error");
             mSingleton.mScore += value;
+            if (mSingleton.mScore < 0)
+                mSingleton.mScore = 0;
         }
 
     }
@@ -159,160 +154,12 @@ public class GM : MonoBehaviour
         }
     }
 
-    //[SerializeField]
-    //private GameObject GameOverText;    //Set in IDE
-
-    //[SerializeField]
-    //private GameObject PressPlayText;    //Set in IDE
-
-    //[SerializeField]
-    //private GameObject NextLevelText;    //Set in IDE
-
-    //public enum GameStates
-    //{
-    //    None,
-    //    Init,
-    //    Startup,
-    //    PressPlay,
-    //    Play,
-    //    Playing,
-    //    NextLevel,
-    //    GameOver,
-    //}
-
-    //GameStates mCurrentState = GameStates.None;
-
-    //static public GameStates GameState
-    //{
-    //    private set
-    //    {
-    //        if (value != mSingleton.mCurrentState)
-    //        {
-    //            mSingleton.ExitState(mSingleton.mCurrentState);
-    //            GameStates tNextState = mSingleton.EnterState(value);
-    //            if (value == tNextState)
-    //            {
-    //                mSingleton.mCurrentState = tNextState;
-    //            }
-    //            else
-    //            {
-    //                mSingleton.mCurrentState = value;
-    //                GameState = tNextState;
-    //            }
-    //        }
-    //    }
-    //    get
-    //    {
-    //        return mSingleton.mCurrentState;
-    //    }
-    //}
-
-
-    //private GameStates EnterState(GameStates vState)
-    //{
-    //    Debug.LogFormat("Enter State {0}", vState);
-    //    switch (vState)
-    //    {
-    //        case GameStates.Init:
-
-    //            GameClear();
-    //            return GameStates.PressPlay;
-
-    //        case GameStates.PressPlay:
-
-    //            break;
-
-    //        case GameStates.Play:
-                
-    //            return GameStates.Playing;
-
-    //        case GameStates.NextLevel:
-    //            mLevel++;
-    //            return GameStates.Playing;
-
-    //        case GameStates.GameOver:
-
-    //            break;
-
-    //        default:
-    //            break;
-    //    }
-    //    return vState;
-    //}
-
-    //private void ExitState(GameStates vState)
-    //{
-    //    Debug.LogFormat("Exit State {0}", vState);
-    //    switch (vState)
-    //    {
-    //        case GameStates.PressPlay:
-
-    //            break;
-    //        default:    //No Action
-    //            break;
-    //    }
-    //}
-
-    //IEnumerator GameStateCoRoutine()
-    //{
-    //    do
-    //    {
-    //        switch (GameState)
-    //        {
-
-    //            case GameStates.PressPlay:
-    //                if (Input.GetKey(KeyCode.Space))
-    //                {
-    //                    GameState = GameStates.Play;    //Go to new state
-    //                }
-    //                break;
-
-    //            case GameStates.Playing:
-    //                {
-
-    //                }
-    //                break;
-
-    //            case GameStates.GameOver:
-    //                if (Input.GetKey(KeyCode.Space))
-    //                {
-    //                    GameState = GameStates.Init;    //Go to new state
-    //                }
-    //                break;
-
-    //            default:    //No Action
-    //                break;
-    //        }
-    //        yield return new WaitForSeconds(0.1f);  //Wait for a 10th of a second before runnign again, lets other stuff process
-    //    } while (true); //Never End
-    //}
-
-
-    //static public void InitGame()
-    //{
-    //    mSingleton.mScore = 0;  //Reset Score
-    //    mSingleton.mLevel = 1;  //Start at Level 1
-    //    GameState = GameStates.Init;
-    //}
-
-    public static void StartGame()
-    {
-
-
-    }
-
-    public static void GameClear()
-    {
-        //FakePhysicsBase[] tFFObjects = FindObjectsOfType<FakePhysicsBase>();
-        //foreach (var tFF in tFFObjects)
-        //{
-        //    Destroy(tFF.gameObject);
-        //}
-    }
 
     #endregion
 
     #region Time
+
+    private bool gameOver = false;
 
     float currentTime = 30.0f;
     public static float Timer
@@ -324,6 +171,8 @@ public class GM : MonoBehaviour
         set
         {
             mSingleton.currentTime = value;
+            if (mSingleton.currentTime < 0)
+                mSingleton.currentTime = 0;
         }
     }
 
@@ -334,21 +183,27 @@ public class GM : MonoBehaviour
 
     private static void CountTime()
     {
-        mSingleton.currentTime -= Time.deltaTime;
+        if (mSingleton.currentTime >= 0.0f)
+        {
+            mSingleton.currentTime -= Time.deltaTime;
+        }
+        else
+            mSingleton.gameOver = true;
+            
+
     }
 
     #endregion
-
-    #region Debug
-
 
     private void Update()
     {
 
         IncreaseLevel();
         CountTime();
-
+        if (gameOver)
+        {
+            print("GameOver Score: " + Score);
+        }
     }
 
-    #endregion
 }

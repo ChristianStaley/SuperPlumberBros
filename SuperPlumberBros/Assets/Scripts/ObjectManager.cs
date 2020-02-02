@@ -25,9 +25,9 @@ public class ObjectManager : MonoBehaviour
     void Update()
     {
         waitTime -= GM.Level;
-        if (waitTime < 1.0f)
+        if (waitTime < 1.5f)
         {
-            waitTime = 1.0f;
+            waitTime = 1.5f;
         }
 
 

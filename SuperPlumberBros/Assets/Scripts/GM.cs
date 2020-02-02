@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GM : MonoBehaviour
 {
@@ -114,7 +115,7 @@ public class GM : MonoBehaviour
 
     private void IncreaseLevel()
     {
-        if (Time.time > lastTime)
+        if (Time.time > lastTime && !GM.GameOver)
         {
             mLevel++;
             lastTime += waitTime;
@@ -128,7 +129,7 @@ public class GM : MonoBehaviour
 
     
 
-    float currentTime = 30.0f;
+    float currentTime = 2.0f;
     public static float Timer
     {
         get
@@ -176,6 +177,17 @@ public class GM : MonoBehaviour
         }
     }
 
+
+    public static void StartTime()
+    {
+        mSingleton.startTime = true;
+    }
+
+
+    private float gameOverTime = 0.0f;
+    private float gameOverWaitTime = 5.0f;
+    private bool startTime = false;
+
     private void Update()
     {
 
@@ -183,7 +195,19 @@ public class GM : MonoBehaviour
         CountTime();
         if (gameOver)
         {
-            print("GameOver Score: " + Score);
+            if(!startTime)
+            {
+                gameOverTime = Time.time + gameOverWaitTime;
+            }
+
+            if(startTime)
+            {
+                if (Time.time > gameOverTime)
+                {
+                    SceneManager.LoadScene("Menu");
+                }
+            }
+
         }
     }
 

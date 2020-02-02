@@ -25,7 +25,7 @@ public class Repair : MonoBehaviour
 
     private void Update()
     {
-        if(Time.time > lastReset)
+        if(Time.time > lastReset && !GM.GameOver)
         {
             GM.Score = -(10 * GM.Level);
             lastReset += timeTillReset;

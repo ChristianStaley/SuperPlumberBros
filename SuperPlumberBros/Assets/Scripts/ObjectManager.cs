@@ -13,7 +13,7 @@ public class ObjectManager : MonoBehaviour
         repairTargets = GameObject.FindGameObjectsWithTag("Repairable");
         foreach (GameObject go in repairTargets)
         {
-            print(go);
+            //print(go);
             go.SetActive(false);
         }
 
@@ -35,7 +35,7 @@ public class ObjectManager : MonoBehaviour
         {
             int newTarget = Random.Range(0, repairTargets.Length);
             repairTargets[newTarget].SetActive(true);
-            print("ACIVATING NEW REPAIR");
+            //print("ACIVATING NEW REPAIR");
             lastSpawnTime += waitTime;
         }
     }
